@@ -62,7 +62,14 @@ angular.module('ion-alpha-scroll', [])
 
                         scope.alphaScrollGoToList = function(id) {
                             $location.hash(id);
-                            $ionicScrollDelegate.$getByHandle('alphaScroll').anchorScroll();
+                            
+                            $ionicScrollDelegate
+                                .$getByHandle()
+                                ._instances.forEach(function(scroll) {
+                                  if (scroll.$$delegateHandle === "alphaScroll") {
+                                    scroll.anchorScroll();
+                                  }
+                                });
                         }
 
                         //Create alphabet object
